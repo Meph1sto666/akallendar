@@ -1,0 +1,30 @@
+{
+    "future": [
+        {
+            "date": "2023-04-14",
+            "name": "mizuki"
+        }
+    ],
+    "cn": [
+        {
+            "date": "2022-01-05",
+            "name": "phantom"
+        },
+        {
+            "date": "2022-09-27",
+            "name": "mizuki"
+        }
+    ],
+    "en": [
+        {
+            "date": "2022-07-14",
+            "name": "phantom"
+        }
+    ],
+    "tw": [
+        {
+            "date": "2022-10-13",
+            "name": "phantom"
+        }
+    ]
+}
