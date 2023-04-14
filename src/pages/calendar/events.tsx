@@ -17,7 +17,7 @@ function createGrid(startDate:Date, endDate:Date, s:string, filterRules:FilterRu
 			// let tags = today == day ? "day today" : "day";
 			days.push(d == 1 ? <div className={`${styles.day}`} style={{["--start-column" as string]: firstDayOfMonth.getDay()+1}}>{d}</div> : <div className={styles.day}>{d}</div>)
 		}
-		let overlay = createEvents(startDate, lastDayOfMonth, s).concat(createIss(startDate, lastDayOfMonth, s)).concat(createEpisodes(startDate, lastDayOfMonth, s));
+		let overlay = createEvents(lastDayOfMonth, s).concat(createIss(lastDayOfMonth, s)).concat(createEpisodes(lastDayOfMonth, s));
 		sections.push(
 			<section className={`${styles.section} ${(firstDayOfMonth.getDay()==0)?"":styles.sectionShift}`}>
 				<div className={`${styles.month}`}>{days}</div>
@@ -32,12 +32,13 @@ export default function EventCalendar() {
 	const rout = useRouter();
 	let s = rout.query.s?.toString()??"future";
 	let events = getEvents(s);
+	
 	const start = events[0].start;
 	const end = events[events.length-1].end;
 	return (
 		<>
 			<Head>
-				<title>Calendar</title>
+				<title>Calendar - {s.toUpperCase()}</title>
 			</Head>
 			<div>
 				{createGrid(start, end, s)}

@@ -6,7 +6,8 @@ import episodesJson from '../data/episodes.json';
 import integratedStrategiesJson from '../data/is.json';
 import birthdaysJson from '../data/birthdays.json';
 import { FilterRule, birthdayFilterFn, eventFilterFn } from '@/types/filter';
-import { SortRule, } from '@/types/sort';
+import { SortRule } from "@/types/sort";
+// var srt = useSort([{key:"day", desc:true}])[1]
 
 export function getEvents(s:string, filterRules?:FilterRule[], sortRules?:SortRule[]):Event[] {
 	var events:Event[] = [];
@@ -60,12 +61,12 @@ export function eventColor(event:Event):string {
 	return `#${event.start.getTime().toString(16).slice(-7,-1)}, #${event.end.getTime().toString(16).slice(-7,-1)}`;
 }
 
-export function createEvents(startDate:Date, lastDayOfMonth:Date, s:string) {
+export function createEvents(lastDayOfMonth:Date, s:string) {
 	let eventsMonth = new Array<JSX.Element>();
 	let w = 1;
 	let events = getEvents(s);
 	for (let d = 1; d <= lastDayOfMonth.getDate(); d+=7) {
-		let day = new Date(startDate.getFullYear(), lastDayOfMonth.getMonth(), d);
+		let day = new Date(lastDayOfMonth.getFullYear(), lastDayOfMonth.getMonth(), d);
 		for (let e of events) {
 			let startCol = 1;
 			let endCol = -1;
@@ -84,11 +85,11 @@ export function createEvents(startDate:Date, lastDayOfMonth:Date, s:string) {
 	}
 	return eventsMonth;
 }
-export function createIss(startDate:Date, lastDayOfMonth:Date, s:string) {
+export function createIss(lastDayOfMonth:Date, s:string) {
 	let isMonth = new Array<JSX.Element>();
 	let w = 1;
 	for (let d = 1; d <= lastDayOfMonth.getDate(); d+=7) {
-		let wDay = new Date(startDate.getFullYear(), lastDayOfMonth.getMonth(), d);
+		let wDay = new Date(lastDayOfMonth.getFullYear(), lastDayOfMonth.getMonth(), d);
 		for (let i of getIntegratedStrategies(s)) {
 			let tags = i.name;
 			if (!isInWeek(wDay, i.date)) continue;
@@ -105,11 +106,11 @@ export function createIss(startDate:Date, lastDayOfMonth:Date, s:string) {
 	}
 	return isMonth;
 }
-export function createEpisodes(startDate:Date, lastDayOfMonth:Date, s:string) {
+export function createEpisodes(lastDayOfMonth:Date, s:string) {
 	let epMonth = new Array<JSX.Element>();
 	let w = 1;
 	for (let d = 1; d <= lastDayOfMonth.getDate(); d+=7) {
-		let wDay = new Date(startDate.getFullYear(), lastDayOfMonth.getMonth(), d);
+		let wDay = new Date(lastDayOfMonth.getFullYear(), lastDayOfMonth.getMonth(), d);
 		for (let e of getEpisodes(s)) {
 			let tags = `${e.id}`;
 			if (!isInWeek(wDay, e.date)) continue;
@@ -130,9 +131,11 @@ export function createBirthdays(startDate:Date, lastDayOfMonth:Date) {
 	let bdMonth = new Array<JSX.Element>();
 	let w = 1;
 	let today = new Date();
+	let birthdays = getBirthdays();
+	// birthdays.sort(srt)
 	for (let d = 1; d <= lastDayOfMonth.getDate(); d+=7) {
 		let wDay = new Date(startDate.getFullYear(), lastDayOfMonth.getMonth(), d);
-		for (let e of getBirthdays()) {
+		for (let e of birthdays) {
 			e.day.setFullYear(today.getFullYear());
 			let tags = `${e.operator_id}`;
 			if (!isInWeek(wDay, e.day)) continue;

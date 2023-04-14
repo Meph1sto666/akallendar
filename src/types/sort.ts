@@ -39,8 +39,8 @@ export const sortFunctions:Record<string, BirthdaySortFunction> = {
 		desc: false,
 	}
 }
-
-export function bdSort(rules:SortRule[]) {
+/*
+export function useSort(rules:SortRule[]) {
 	const [sortChain, setSortChain] = useState<SortRule[]>(rules);
 
 	function toggleSort(key: string, desc?: boolean) {
@@ -50,13 +50,13 @@ export function bdSort(rules:SortRule[]) {
 		} else {
 		  setSortChain(_ => [...filteredChain]);
 		}
-	  }
+	}
 
 	const sortFn = useCallback((a: Birthday, b: Birthday) => {
 		return sortChain.map(({ key, desc }) => {return sortFunctions[key as keyof typeof sortFunctions].fn(a, b)*(desc?1:-1)}).reduce((a, b) => {return a || b}, 0);
 	}, [sortChain])
 	return [sortFn] as const
-}
+}*/
 export function eventSortFn(a:Event, b:Event) {
 	return a.start.getTime()-b.start.getTime();
 }

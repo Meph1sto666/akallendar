@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styles from '@/styles/calendar.module.css';
 import {monthDiff, createBirthdays, getBirthdays} from '@/scripts/calendar.module.tsx';
-import { birthdaySortFn } from "@/types/sort";
 import { useState, useCallback } from "react"
 import { birthdayFilterFn } from "@/types/filter";
 
